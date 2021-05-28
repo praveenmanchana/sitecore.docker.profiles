@@ -1,6 +1,54 @@
 version: "2.4"
 services:
-   cd:
+  traefik:
+    profiles: ["xm1"]
+
+  mssql:
+    profiles: ["xm1", "xm0"]
+
+  solr:
+    profiles: ["xm1", "xm0"]
+
+  redis:
+    profiles: ["xm1"]
+
+  cm:
+    profiles: ["xm1", "xm0"]
+
+  id:
+    profiles: ["xm1", "xm0"]
+
+  cd:
+    profiles: ["xm1"]
     labels:
       - "traefik.http.routers.cd.entrypoints=websecure"
       - "traefik.http.routers.cd.tls=true"
+
+  traefikxm0:
+    isolation: ${TRAEFIK_ISOLATION}
+    image: ${TRAEFIK_IMAGE}
+    profiles: ["xm0"]
+    command:
+      - "--ping"
+      - "--api.insecure=true"
+      - "--providers.docker.endpoint=npipe:////./pipe/docker_engine"
+      - "--providers.docker.exposedByDefault=false"
+      - "--providers.file.directory=C:/etc/traefik/config/dynamic"
+      - "--entryPoints.web.address=:80"
+      - "--entryPoints.websecure.address=:443"
+    ports:
+      - "8080:80"
+      - "443:443"
+      - "8079:8080"
+    healthcheck:
+      test: ["CMD", "traefik", "healthcheck", "--ping"]
+    volumes:
+      - source: \\.\pipe\docker_engine
+        target: \\.\pipe\docker_engine
+        type: npipe
+      - ./traefik:C:/etc/traefik
+    depends_on:
+      id:
+        condition: service_healthy
+      cm:
+        condition: service_healthy    
