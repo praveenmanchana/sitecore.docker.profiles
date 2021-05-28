@@ -1,0 +1,6 @@
+version: "2.4"
+services:
+   cd:
+    labels:
+      - "traefik.http.routers.cd.entrypoints=websecure"
+      - "traefik.http.routers.cd.tls=true"

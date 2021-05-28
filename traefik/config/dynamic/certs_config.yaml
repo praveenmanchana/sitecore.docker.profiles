@@ -1,6 +1,8 @@
 tls:
   certificates:
-    - certFile: C:\etc\traefik\certs\xm1cm.localhost.crt
-      keyFile: C:\etc\traefik\certs\xm1cm.localhost.key
-    - certFile: C:\etc\traefik\certs\xm1id.localhost.crt
-      keyFile: C:\etc\traefik\certs\xm1id.localhost.key
+    - certFile: C:\etc\traefik\certs\cm.localhost.crt
+      keyFile: C:\etc\traefik\certs\cm.localhost.key
+    - certFile: C:\etc\traefik\certs\id.localhost.crt
+      keyFile: C:\etc\traefik\certs\id.localhost.key
+    - certFile: C:\etc\traefik\certs\cd.localhost.crt
+      keyFile: C:\etc\traefik\certs\cd.localhost.key      

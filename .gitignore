@@ -1,0 +1,4 @@
+/license.xml
+solr-data/*
+mssql-data/*
+traefik/certs/*
